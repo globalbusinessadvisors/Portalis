@@ -38,7 +38,7 @@ jobs:
             os: windows-latest
             target: x86_64-pc-windows-msvc
             bin: portalis.exe
-            asset_name: portalis-windows-x86_64.exe
+            asset_name: portalis-windows-x86_64
 
     steps:
       - name: Checkout code
