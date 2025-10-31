@@ -99,7 +99,7 @@ pub struct CompatibilityAnalyzer {
 impl CompatibilityAnalyzer {
     pub fn new() -> Self {
         Self {
-            min_translatable_score: 70.0,
+            _min_translatable_score: 70.0,
         }
     }
 

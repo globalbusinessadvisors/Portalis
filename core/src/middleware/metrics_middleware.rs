@@ -69,7 +69,7 @@ impl RequestGuard {
         Self {
             metrics,
             endpoint,
-            method,
+            _method: method,
             start: Instant::now(),
         }
     }
