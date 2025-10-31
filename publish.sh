@@ -14,6 +14,7 @@ NC='\033[0m' # No Color
 DRY_RUN=false
 SKIP_PYTHON=false
 SKIP_RUST=false
+SKIP_NPM=false
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -30,6 +31,10 @@ while [[ $# -gt 0 ]]; do
             SKIP_RUST=true
             shift
             ;;
+        --skip-npm)
+            SKIP_NPM=true
+            shift
+            ;;
         -h|--help)
             echo "Usage: ./publish.sh [OPTIONS]"
             echo ""
@@ -37,6 +42,7 @@ while [[ $# -gt 0 ]]; do
             echo "  --dry-run        Test without actually publishing"
             echo "  --skip-python    Skip Python package publishing"
             echo "  --skip-rust      Skip Rust crate publishing"
+            echo "  --skip-npm       Skip npm package publishing"
             echo "  -h, --help       Show this help message"
             exit 0
             ;;
@@ -64,6 +70,7 @@ else
     echo "  TWINE_USERNAME=__token__"
     echo "  TWINE_PASSWORD=pypi-xxx"
     echo "  CARGO_REGISTRY_TOKEN=crates-io-xxx"
+    echo "  NPM_TOKEN=npm-xxx"
     exit 1
 fi
 
@@ -82,6 +89,13 @@ if [ "$SKIP_RUST" = false ]; then
     fi
 fi
 
+if [ "$SKIP_NPM" = false ]; then
+    if [ -z "$NPM_TOKEN" ]; then
+        echo -e "${RED}❌ npm token missing in .env${NC}"
+        exit 1
+    fi
+fi
+
 echo ""
 
 # Check required tools
@@ -90,6 +104,9 @@ command -v cargo >/dev/null 2>&1 || { echo -e "${RED}❌ cargo not found${NC}"; 
 if [ "$SKIP_PYTHON" = false ]; then
     command -v python >/dev/null 2>&1 || command -v python3 >/dev/null 2>&1 || { echo -e "${RED}❌ python not found${NC}"; exit 1; }
     command -v twine >/dev/null 2>&1 || { echo -e "${RED}❌ twine not found. Install with: pip install twine${NC}"; exit 1; }
+fi
+if [ "$SKIP_NPM" = false ]; then
+    command -v npm >/dev/null 2>&1 || { echo -e "${RED}❌ npm not found${NC}"; exit 1; }
 fi
 echo -e "${GREEN}✓${NC} All required tools found"
 echo ""
@@ -202,6 +219,36 @@ if [ "$SKIP_RUST" = false ]; then
     echo ""
 fi
 
+# Publish npm package
+if [ "$SKIP_NPM" = false ]; then
+    echo -e "${YELLOW}📦 Publishing npm package${NC}"
+    echo "=========================="
+    echo ""
+
+    # Ensure we're logged in to npm
+    if [ "$DRY_RUN" = false ]; then
+        echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+    fi
+
+    if [ "$DRY_RUN" = true ]; then
+        echo "  Verifying package..."
+        npm pack --dry-run || {
+            echo -e "${RED}❌ Package verification failed${NC}"
+        }
+        echo -e "  ${YELLOW}[DRY RUN]${NC} Would publish to npm"
+    else
+        echo "  Publishing to npm..."
+        npm publish --access public || {
+            echo -e "${YELLOW}⚠${NC} Publish failed (may already exist)"
+        }
+        # Clean up .npmrc
+        rm -f .npmrc
+    fi
+
+    echo -e "${GREEN}✓${NC} Completed: npm package"
+    echo ""
+fi
+
 # Summary
 echo ""
 echo -e "${GREEN}✅ Publishing Complete!${NC}"
@@ -216,8 +263,11 @@ if [ "$DRY_RUN" = true ]; then
 else
     echo "Users can now install with:"
     echo ""
+    if [ "$SKIP_NPM" = false ]; then
+        echo -e "  ${GREEN}npm install -g portalis${NC}              # Recommended"
+    fi
     if [ "$SKIP_RUST" = false ]; then
-        echo -e "  ${GREEN}cargo install portalis${NC}"
+        echo -e "  ${GREEN}cargo install portalis${NC}                # For Rust developers"
     fi
     if [ "$SKIP_PYTHON" = false ]; then
         echo -e "  ${GREEN}pip install portalis-nemo-integration${NC}  # Optional GPU features"

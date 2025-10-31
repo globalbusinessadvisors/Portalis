@@ -1,5 +1,60 @@
 {
-  "dependencies": {
-    "claude-flow": "^2.0.0"
-  }
+  "name": "portalis",
+  "version": "0.1.0",
+  "description": "GPU-accelerated Python to Rust/WASM transpiler with CPU SIMD optimization and Wassette runtime",
+  "main": "index.js",
+  "bin": {
+    "portalis": "./bin/portalis"
+  },
+  "scripts": {
+    "postinstall": "node scripts/install.js",
+    "test": "node index.js --version"
+  },
+  "keywords": [
+    "python",
+    "rust",
+    "wasm",
+    "webassembly",
+    "transpiler",
+    "compiler",
+    "gpu",
+    "cuda",
+    "simd",
+    "performance",
+    "wassette",
+    "translation",
+    "code-generation"
+  ],
+  "author": "Portalis Team <team@portalis.ai>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/portalis/portalis.git"
+  },
+  "homepage": "https://portalis.dev",
+  "bugs": {
+    "url": "https://github.com/portalis/portalis/issues"
+  },
+  "files": [
+    "bin/portalis",
+    "bin/portalis.cmd",
+    "scripts/install.js",
+    "index.js",
+    "README.md",
+    "LICENSE",
+    "QUICK_START.md"
+  ],
+  "os": [
+    "darwin",
+    "linux",
+    "win32"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "preferGlobal": true
 }

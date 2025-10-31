@@ -1,0 +1,13 @@
+#!/bin/sh
+# Portalis wrapper script for Unix systems
+
+bindir=$(dirname "$0")
+exe="$bindir/portalis"
+
+if [ ! -f "$exe" ]; then
+  echo "Error: Portalis binary not found at $exe"
+  echo "Try reinstalling: npm install -g portalis"
+  exit 1
+fi
+
+exec "$exe" "$@"

@@ -152,7 +152,22 @@ PORTALIS uses a multi-tier architecture with CPU, GPU, and WebAssembly accelerat
 
 ### Installation
 
-**After publication (coming soon):**
+**Recommended - Via npm (cross-platform binaries):**
+```bash
+# Install globally
+npm install -g portalis
+
+# Or with yarn
+yarn global add portalis
+
+# Or with pnpm
+pnpm add -g portalis
+
+# Verify installation
+portalis --version
+```
+
+**Via cargo (for Rust developers):**
 ```bash
 # Install from crates.io
 cargo install portalis
@@ -161,7 +176,7 @@ cargo install portalis
 portalis --version
 ```
 
-**Current (development):**
+**From source (development):**
 ```bash
 # Clone and build from source
 git clone https://github.com/portalis/portalis.git
@@ -204,6 +219,222 @@ portalis convert ./src/
 - ✅ Entire projects → Complete conversion
 
 See [QUICK_START.md](QUICK_START.md) for detailed examples and [USE_CASES.md](USE_CASES.md) for real-world scenarios.
+
+---
+
+## 📋 CLI Commands Reference
+
+Portalis provides a comprehensive command-line interface with the following commands:
+
+### 🔄 `convert` - Convert Python to Rust/WASM (Recommended)
+
+The main command for translating Python code to Rust and compiling to WebAssembly.
+
+```bash
+# Convert single file
+portalis convert script.py
+
+# Convert entire directory
+portalis convert ./src/
+
+# Convert with custom output
+portalis convert input.py --output ./dist/
+
+# With verbose logging
+portalis convert input.py -vv
+
+# Specify target (wasm, native, library)
+portalis convert input.py --target wasm
+```
+
+**Options:**
+- `--output, -o <PATH>` - Output directory
+- `--target <TYPE>` - Target type: wasm, native, or library
+- `--features <LIST>` - Enable specific features
+- `--optimize` - Enable optimizations
+- `--verbose, -v` - Increase verbosity
+
+### 📊 `assess` - Analyze Codebase Compatibility
+
+Assess a Python codebase for translation compatibility and generate detailed reports.
+
+```bash
+# Assess current directory
+portalis assess
+
+# Assess specific project
+portalis assess --project ./my-app/
+
+# Generate HTML report
+portalis assess --report report.html --format html
+
+# JSON output for CI/CD
+portalis assess --format json --output assessment.json
+```
+
+**Outputs:**
+- Compatibility score (0-100)
+- Feature usage analysis
+- Dependency graph
+- Risk assessment
+- Migration effort estimate
+
+### 🗺️ `plan` - Generate Migration Strategy
+
+Create a step-by-step migration plan for converting your Python codebase.
+
+```bash
+# Generate default plan
+portalis plan
+
+# Bottom-up strategy (start with leaf modules)
+portalis plan --strategy bottom-up
+
+# Top-down strategy (start with entry points)
+portalis plan --strategy top-down
+
+# Critical-path (migrate performance bottlenecks first)
+portalis plan --strategy critical-path
+
+# Incremental (gradual hybrid Python/Rust)
+portalis plan --strategy incremental
+```
+
+**Strategies:**
+- `bottom-up` - Start with leaf modules, work up
+- `top-down` - Start from entry points
+- `critical-path` - Prioritize performance bottlenecks
+- `incremental` - Gradual migration with hybrid approach
+
+### 📦 `package` - Package WASM for Deployment
+
+Package compiled WASM modules for various deployment targets.
+
+```bash
+# Package for web deployment
+portalis package wasm_module.wasm --target web
+
+# Package for Node.js
+portalis package wasm_module.wasm --target node
+
+# Create deployment bundle
+portalis package wasm_module.wasm --bundle --output ./deploy/
+```
+
+### 🧪 `test` - Run Conformance Tests
+
+Execute conformance tests to verify translation correctness.
+
+```bash
+# Run all tests
+portalis test
+
+# Run specific test suite
+portalis test --suite python-features
+
+# With coverage
+portalis test --coverage
+```
+
+### 🌐 `serve` - Run Translation Service
+
+Start a local or production translation service with REST API.
+
+```bash
+# Start development server
+portalis serve
+
+# Production mode with custom port
+portalis serve --port 8080 --workers 4
+
+# With GPU acceleration
+portalis serve --enable-gpu --gpu-workers 2
+```
+
+**Endpoints:**
+- `POST /translate` - Translate Python code
+- `POST /assess` - Assess compatibility
+- `GET /health` - Health check
+- `GET /metrics` - Prometheus metrics
+
+### 🏥 `doctor` - System Diagnostics
+
+Check system configuration and identify issues.
+
+```bash
+# Run diagnostics
+portalis doctor
+
+# Verbose output
+portalis doctor --verbose
+
+# Attempt auto-fix
+portalis doctor --fix
+```
+
+**Checks:**
+- Rust toolchain installation
+- WASM targets availability
+- GPU/CUDA support (optional)
+- NeMo service status (optional)
+- Required dependencies
+
+### 🔧 `completion` - Shell Completions
+
+Generate shell completion scripts for your preferred shell.
+
+```bash
+# Bash
+portalis completion bash > ~/.local/share/bash-completion/completions/portalis
+
+# Zsh
+portalis completion zsh > ~/.zfunc/_portalis
+
+# Fish
+portalis completion fish > ~/.config/fish/completions/portalis.fish
+
+# PowerShell
+portalis completion powershell > portalis.ps1
+```
+
+### 🌍 Global Options
+
+Available for all commands:
+
+```bash
+--config <PATH>         # Path to configuration file
+--verbose, -v           # Increase verbosity (-v, -vv, -vvv)
+--quiet, -q             # Suppress non-error output
+--color <MODE>          # Color output: always, auto, never
+--help, -h              # Show help
+--version, -V           # Show version
+```
+
+### 💡 Quick Examples
+
+```bash
+# Convert and assess in one workflow
+portalis assess ./myapp && portalis convert ./myapp
+
+# Generate plan, then convert
+portalis plan --strategy critical-path
+portalis convert ./myapp --optimize
+
+# Run local development
+portalis serve --port 3000 &
+curl -X POST http://localhost:3000/translate -d @script.py
+
+# Check system before converting
+portalis doctor --verbose
+portalis convert ./large-project/ -vv
+
+# Package for multiple targets
+portalis convert app.py
+portalis package output.wasm --target web --output ./web/
+portalis package output.wasm --target node --output ./node/
+```
+
+---
 
 ### With CPU Optimization (Default)
 

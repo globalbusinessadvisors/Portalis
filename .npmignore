@@ -1,0 +1,99 @@
+# Rust source and build artifacts
+/target/
+/agents/
+/cli/src/
+/core/src/
+/orchestration/
+**/*.rs
+Cargo.toml
+Cargo.lock
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Development
+.env
+.env.*
+*.log
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Documentation (keep only README and LICENSE)
+/docs/
+/plans/
+/examples/
+*.md
+!README.md
+!QUICK_START.md
+
+# Tests
+/tests/
+/benchmarks/
+/load-tests/
+
+# Docker
+docker-compose*.yaml
+Dockerfile
+.dockerignore
+
+# CI/CD
+.gitlab-ci.yml
+.travis.yml
+azure-pipelines.yml
+
+# NVIDIA/GPU specific (optional features)
+/cuda-acceleration/
+/nemo-integration/
+/dgx-cloud/
+/nim-microservices/
+/omniverse-integration/
+/deployment/
+
+# Monitoring
+/monitoring/
+
+# Build scripts (keep publish.sh)
+/scripts/build-release.sh
+/scripts/generate-changelog.sh
+/scripts/*.py
+
+# Database
+/migrations/
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+
+# Node.js (keep only necessary files)
+node_modules/
+.npm
+.node_repl_history
+
+# Beta/customer kits
+/beta-customer-kit/
+
+# Misc
+.DS_Store
+Thumbs.db
+*.tmp
+mkdocs.yml
+
+# Keep these files for npm package:
+# - package.json
+# - README.md
+# - LICENSE
+# - index.js
+# - bin/
+# - scripts/install.js
