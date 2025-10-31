@@ -1,6 +1,6 @@
 {
   "name": "portalis",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "description": "GPU-accelerated Python to Rust/WASM transpiler with CPU SIMD optimization and Wassette runtime",
   "main": "index.js",
   "bin": {
