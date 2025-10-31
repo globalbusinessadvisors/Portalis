@@ -101,7 +101,7 @@ jobs:
             ./artifacts/portalis-linux-x86_64/portalis
             ./artifacts/portalis-macos-x86_64/portalis
             ./artifacts/portalis-macos-aarch64/portalis
-            ./artifacts/portalis-windows-x86_64.exe/portalis.exe
+            ./artifacts/portalis-windows-x86_64/portalis.exe
           body: |
             ## Installation
 
@@ -130,6 +130,7 @@ jobs:
     name: Publish to npm
     needs: release
     runs-on: ubuntu-latest
+    if: ${{ secrets.NPM_TOKEN != '' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -149,6 +150,7 @@ jobs:
     name: Publish to crates.io
     needs: build
     runs-on: ubuntu-latest
+    if: ${{ secrets.CARGO_REGISTRY_TOKEN != '' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
