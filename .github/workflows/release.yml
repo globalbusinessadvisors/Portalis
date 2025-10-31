@@ -67,6 +67,7 @@ jobs:
           cargo build --release --bin portalis --target ${{ matrix.platform.target }}
         env:
           CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_LINKER: aarch64-linux-gnu-gcc
+          RUSTFLAGS: ""
 
       - name: Strip binary (Unix)
         if: matrix.platform.os != 'windows-latest'
