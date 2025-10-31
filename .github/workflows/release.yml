@@ -130,7 +130,7 @@ jobs:
     name: Publish to npm
     needs: release
     runs-on: ubuntu-latest
-    if: secrets.NPM_TOKEN != ''
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -150,7 +150,7 @@ jobs:
     name: Publish to crates.io
     needs: build
     runs-on: ubuntu-latest
-    if: secrets.CARGO_REGISTRY_TOKEN != ''
+    continue-on-error: true
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
