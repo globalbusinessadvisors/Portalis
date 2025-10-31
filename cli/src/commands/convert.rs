@@ -538,6 +538,9 @@ lto = true
             verbose: self.verbose,
             fast: self.fast,
             jobs: self.jobs,
+            cpu_only: self.cpu_only,
+            simd: self.simd,
+            hybrid: self.hybrid,
         }
     }
 
