@@ -99,10 +99,9 @@ jobs:
         with:
           files: |
             ./artifacts/portalis-linux-x86_64/portalis
-            ./artifacts/portalis-linux-aarch64/portalis
             ./artifacts/portalis-macos-x86_64/portalis
             ./artifacts/portalis-macos-aarch64/portalis
-            ./artifacts/portalis-windows-x86_64/portalis.exe
+            ./artifacts/portalis-windows-x86_64.exe/portalis.exe
           body: |
             ## Installation
 
