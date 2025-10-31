@@ -130,7 +130,7 @@ impl<T> ObjectPool<T> {
     /// Acquire an object from the pool
     ///
     /// If the pool is empty, creates a new object using the factory.
-    pub fn acquire(&self) -> PooledObject<T> {
+    pub fn acquire(&self) -> PooledObject<'_, T> {
         let obj = self.pool.pop().unwrap_or_else(|| (self.factory)());
         PooledObject {
             obj: Some(obj),
@@ -310,7 +310,7 @@ pub mod zero_copy {
     }
 
     /// Trim a string without allocating if possible
-    pub fn trim_zero_copy(s: &str) -> Cow<str> {
+    pub fn trim_zero_copy(s: &str) -> Cow<'_, str> {
         let trimmed = s.trim();
         if trimmed.len() == s.len() {
             Cow::Borrowed(s)

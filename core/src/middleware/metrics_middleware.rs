@@ -60,7 +60,7 @@ impl MetricsMiddleware {
 pub struct RequestGuard {
     metrics: Arc<PortalisMetrics>,
     endpoint: String,
-    method: String,
+    _method: String,
     start: Instant,
 }
 
@@ -76,7 +76,7 @@ impl RequestGuard {
 
     /// Mark request as successful
     pub fn success(self) {
-        let duration = self.start.elapsed().as_secs_f64();
+        let _duration = self.start.elapsed().as_secs_f64();
 
         // Record success in translation metrics if applicable
         if self.endpoint.contains("translate") {
@@ -92,7 +92,7 @@ impl RequestGuard {
 
     /// Mark request as failed
     pub fn failure(self, error_category: &str) {
-        let duration = self.start.elapsed().as_secs_f64();
+        let _duration = self.start.elapsed().as_secs_f64();
 
         // Record failure
         if self.endpoint.contains("translate") {
@@ -116,7 +116,7 @@ impl RequestGuard {
 impl Drop for RequestGuard {
     fn drop(&mut self) {
         // Record duration regardless of success/failure
-        let duration = self.start.elapsed().as_secs_f64();
+        let _duration = self.start.elapsed().as_secs_f64();
 
         // This is a generic drop, actual success/failure is recorded explicitly
     }
@@ -175,7 +175,7 @@ impl AgentGuard {
     }
 
     /// Mark agent execution as failed
-    pub fn failure(self, error_msg: &str) {
+    pub fn failure(self, _error_msg: &str) {
         let duration = self.start.elapsed().as_secs_f64();
 
         self.metrics
@@ -309,7 +309,7 @@ impl TranslationGuard {
     }
 
     /// Mark translation as successful
-    pub fn success(self, lines_of_code: usize, complexity: f64) {
+    pub fn success(self, lines_of_code: usize, _complexity: f64) {
         let duration = self.start.elapsed().as_secs_f64();
 
         self.metrics

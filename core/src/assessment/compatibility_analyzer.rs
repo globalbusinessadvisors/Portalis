@@ -93,7 +93,7 @@ pub struct FileCompatibility {
 /// Compatibility analyzer
 pub struct CompatibilityAnalyzer {
     /// Minimum score to consider translatable
-    min_translatable_score: f64,
+    _min_translatable_score: f64,
 }
 
 impl CompatibilityAnalyzer {
@@ -184,7 +184,7 @@ impl CompatibilityAnalyzer {
 
         // Calculate per-category scores
         let mut by_category = HashMap::new();
-        for (category, count) in &features.summary.by_category {
+        for (category, _count) in &features.summary.by_category {
             let category_features: Vec<_> = features.features.iter()
                 .filter(|f| &f.category == category)
                 .collect();
@@ -395,7 +395,7 @@ impl CompatibilityAnalyzer {
     /// Generate recommendations
     fn generate_recommendations(
         &self,
-        features: &FeatureSet,
+        _features: &FeatureSet,
         score: &TranslatabilityScore,
         blockers: &[Blocker],
     ) -> Vec<Recommendation> {
