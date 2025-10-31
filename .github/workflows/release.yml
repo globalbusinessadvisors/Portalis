@@ -94,14 +94,22 @@ jobs:
         with:
           path: ./artifacts
 
+      - name: Prepare release assets
+        run: |
+          mkdir -p ./release
+          cp ./artifacts/portalis-linux-x86_64/portalis ./release/portalis-linux-x86_64
+          cp ./artifacts/portalis-macos-x86_64/portalis ./release/portalis-macos-x86_64
+          cp ./artifacts/portalis-macos-aarch64/portalis ./release/portalis-macos-aarch64
+          cp ./artifacts/portalis-windows-x86_64/portalis.exe ./release/portalis-windows-x86_64.exe
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            ./artifacts/portalis-linux-x86_64/portalis
-            ./artifacts/portalis-macos-x86_64/portalis
-            ./artifacts/portalis-macos-aarch64/portalis
-            ./artifacts/portalis-windows-x86_64/portalis.exe
+            ./release/portalis-linux-x86_64
+            ./release/portalis-macos-x86_64
+            ./release/portalis-macos-aarch64
+            ./release/portalis-windows-x86_64.exe
           body: |
             ## Installation
 
