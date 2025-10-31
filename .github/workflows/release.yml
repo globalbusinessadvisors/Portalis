@@ -22,12 +22,6 @@ jobs:
             bin: portalis
             asset_name: portalis-linux-x86_64
 
-          - name: linux-aarch64
-            os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            bin: portalis
-            asset_name: portalis-linux-aarch64
-
           - name: macos-x86_64
             os: macos-latest
             target: x86_64-apple-darwin
