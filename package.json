@@ -29,11 +29,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/portalis/portalis.git"
+    "url": "https://github.com/globalbusinessadvisors/Portalis.git"
   },
-  "homepage": "https://portalis.dev",
+  "homepage": "https://github.com/globalbusinessadvisors/Portalis#readme",
   "bugs": {
-    "url": "https://github.com/portalis/portalis/issues"
+    "url": "https://github.com/globalbusinessadvisors/Portalis/issues"
   },
   "files": [
     "bin/portalis",
@@ -56,5 +56,8 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "preferGlobal": true
+  "preferGlobal": true,
+  "dependencies": {
+    "claude-flow": "^2.7.12"
+  }
 }
