@@ -22,7 +22,7 @@ tracing.workspace = true
 tracing-subscriber = { workspace = true, features = ["env-filter"] }
 uuid.workspace = true
 chrono.workspace = true
-prometheus = "0.13"
+prometheus = "0.14"
 num_cpus = "1.16"
 raw-cpuid = "11.0"
 
