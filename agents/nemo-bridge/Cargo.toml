@@ -13,7 +13,7 @@ readme = "../../README.md"
 
 [dependencies]
 portalis-core = { version = "0.1.0", path = "../../core" }
-reqwest = { version = "0.11", features = ["json"] }
+reqwest = { version = "0.12", features = ["json"] }
 serde.workspace = true
 serde_json.workspace = true
 tokio.workspace = true
