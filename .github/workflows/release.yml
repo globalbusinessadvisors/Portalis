@@ -74,7 +74,7 @@ jobs:
           strip target/${{ matrix.platform.target }}/release/${{ matrix.platform.bin }}
 
       - name: Upload binary as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: ${{ matrix.platform.asset_name }}
           path: target/${{ matrix.platform.target }}/release/${{ matrix.platform.bin }}
