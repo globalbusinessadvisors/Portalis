@@ -103,7 +103,7 @@ jobs:
           cp ./artifacts/portalis-windows-x86_64/portalis.exe ./release/portalis-windows-x86_64.exe
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: |
             ./release/portalis-linux-x86_64
