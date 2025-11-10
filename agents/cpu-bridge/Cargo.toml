@@ -48,7 +48,7 @@ memory-opt = []
 
 [dev-dependencies]
 # Benchmarking framework
-criterion = { version = "0.5", features = ["html_reports"] }
+criterion = { version = "0.7", features = ["html_reports"] }
 
 # Testing utilities
 tempfile = "3.8"
