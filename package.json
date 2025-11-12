@@ -58,6 +58,6 @@
   },
   "preferGlobal": true,
   "dependencies": {
-    "claude-flow": "^2.7.12"
+    "claude-flow": "^2.7.31"
   }
 }
